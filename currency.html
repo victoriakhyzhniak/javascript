@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <title>Currency Exchange</title>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+
+                document.querySelector('form').onsubmit = function() {
+                   
+                    fetch('https://www.floatrates.com/daily/usd.json')
+                .then(response => response.json())
+                .then(data => {
+                    const currency = document.querySelector('#currency').value;
+                    const rate = data.rate[currency];
+                    if (rate !== undefined) {
+                        document.querySelector('result').innerHTML = `1 USD is equal to ${rate.toFixed(3)} ${currency}.`;
+                    } else {
+                        document.querySelector('result').innerHTML = `Invalid currency.`;
+
+                    }
+
+                    //console.log(data);
+                });
+
+                    return false;
+                }
+
+
+            
+            });
+        </script>
+    </head>
+    <body>
+<form>
+    <input id ="currency" placeholder="Currency"
+ type="text">
+<input type="submit" value="Convert">
+</form>
+    </body>
+    <div id="result">
+        
+    </div>
+</html>
